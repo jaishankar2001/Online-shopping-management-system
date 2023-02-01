@@ -1,0 +1,74 @@
+CREATE OR REPLACE FUNCTION del_trig()
+  RETURNS trigger AS
+$$
+	DECLARE type1 VARCHAR(10); logID INT ; lasttrack INT; add varchar(100);
+	BEGIN
+		select type into type1 from customer where new.userid=customer.userid;
+		select Logisticsid into logID from seller where new.sellerid=seller.sellerid; 
+		select case
+			when count(trackingid)=0 then 1 
+			else (max(trackingid)+1) 
+			end
+		into lasttrack from delivers;
+		select Useraddress into add from customer where new.userid=customer.userid;
+		if lasttrack = NULL
+			then
+				set lasttrack = 1;
+			end if;
+		if type1 = 'Prime'
+			then 
+				insert into delivers values(new.userid,logID,lasttrack,add,current_date+1);
+			end if;
+		if type1 = 'not Prime'
+			then 
+				insert into delivers values(new.userid,logID,lasttrack,add,current_date+4);	
+			end if;
+		RETURN NEW;
+	END;
+$$
+LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE TRIGGER ins_order
+AFTER INSERT ON orders
+FOR EACH ROW
+EXECUTE PROCEDURE del_trig();
+
+CREATE OR REPLACE FUNCTION pick_trig()
+  RETURNS trigger AS
+$$
+	DECLARE logId INT;
+	BEGIN
+		select logisticsid into logID from seller where new.sellerid=seller.sellerid; 
+		insert into pickup_shipment values(new.orderid,current_date,logID,new.sellerid);
+		RETURN NEW;
+	END;
+$$
+LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE TRIGGER ins_order_pickup
+AFTER INSERT ON orders
+FOR EACH ROW
+EXECUTE PROCEDURE pick_trig();
+
+CREATE OR REPLACE FUNCTION avail_trig()
+  RETURNS trigger AS
+$$
+	DECLARE quant INT; avail BOOLEAN;
+	BEGIN
+		select quantity into quant from offers where new.sellerid=offers.sellerid and new.productid=offers.productid; 
+		select case
+			when quant-new.quantity<1 then FALSE 
+			else TRUE 
+			end
+		into avail from offers;
+		update offers set quantity=quant-new.quantity where new.sellerid=offers.sellerid and new.productid=offers.productid;
+		update offers set availability=avail where new.sellerid=offers.sellerid and new.productid=offers.productid;
+		RETURN NEW;
+	END;
+$$
+LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE TRIGGER ins_order_check_avail
+AFTER INSERT ON orders
+FOR EACH ROW
+EXECUTE PROCEDURE avail_trig();

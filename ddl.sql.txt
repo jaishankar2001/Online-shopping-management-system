@@ -1,0 +1,91 @@
+Drop database miniproj;
+create database miniproj;
+\c miniproj
+CREATE TABLE Logistics
+(
+  CompanyID INT NOT NULL,
+  CompanyPhoneNo INT NOT NULL,
+  CompanyName VARCHAR(50) NOT NULL,
+  PRIMARY KEY (CompanyID)
+);
+
+CREATE TABLE Customer
+(
+  UserID INT NOT NULL,
+  Username VARCHAR(20) NOT NULL,
+  PhoneNo INT NOT NULL,
+  EmailID VARCHAR(30) NOT NULL,
+  UserAddress VARCHAR(100) NOT NULL,
+  Type VARCHAR(10) NOT NULL,
+  PRIMARY KEY (UserID)
+);
+
+CREATE TABLE Seller
+(
+  SellerID INT NOT NULL,
+  SellerName VARCHAR(20) NOT NULL,
+  SellerWarehouseInfo VARCHAR(100) NOT NULL,
+  LogisticsID INT NOT NULL,
+  PRIMARY KEY (SellerID),
+  FOREIGN KEY (logisticsid) REFERENCES Logistics(CompanyID)
+);
+
+CREATE TABLE Products
+(
+  ProductID INT NOT NULL,
+  Price FLOAT NOT NULL,
+  Photo BYTEA NOT NULL,
+  Description VARCHAR(100) NOT NULL,
+  PRIMARY KEY (ProductID)
+);
+
+CREATE TABLE Orders
+(
+  OrderID INT NOT NULL,
+  ProductID INT NOT NULL,
+  UserID INT NOT NULL,
+  SellerID INT NOT NULL,
+  Quantity INT NOT NULL,
+  PRIMARY KEY (OrderID),
+  FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
+  FOREIGN KEY (UserID) REFERENCES Customer(UserID),
+  FOREIGN KEY (SellerID) REFERENCES Seller(SellerID)
+);
+
+CREATE TABLE Delivers
+(
+  UserID INT NOT NULL,
+  CompanyID INT NOT NULL,
+  TrackingID INT NOT NULL,
+  DeliveryAddress VARCHAR(100) NOT NULL,
+  Delivery_by date NOT NULL,
+  PRIMARY KEY (TrackingID),
+  FOREIGN KEY (UserID) REFERENCES Customer(UserID),
+  FOREIGN KEY (CompanyID) REFERENCES Logistics(CompanyID)
+);
+
+CREATE TABLE Pickup_Shipment
+(
+	order_id INT NOT NULL,
+  PickupDate DATE NOT NULL,
+  CompanyID INT NOT NULL,
+  SellerID INT NOT NULL,
+  PRIMARY KEY (order_id),
+	FOREIGN KEY (order_id) REFERENCES ORDERS(orderID),
+  FOREIGN KEY (CompanyID) REFERENCES Logistics(CompanyID),
+  FOREIGN KEY (SellerID) REFERENCES Seller(SellerID)
+);
+
+CREATE TABLE Offers
+(
+  Availability boolean NOT NULL,
+  SellerID INT NOT NULL,
+  ProductID INT NOT NULL,
+  PRIMARY KEY (SellerID, ProductID),
+  FOREIGN KEY (SellerID) REFERENCES Seller(SellerID),
+  FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
+);
+
+alter table Orders alter column Quantity set default 1;
+Alter table Offers add column Quantity INT NOT NULL;
+Alter table pickup_shipment add column order_id INT NOT NULL references orders(orderid);

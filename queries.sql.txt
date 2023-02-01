@@ -1,0 +1,10 @@
+insert into orders values( 9, 686, 3, 1522, 1);
+select productid,price,description from products;
+select p.productid,p.price,p.description from products p,offers o where p.productid=o.productid and sellerid=(select sellerid from seller where sellername='Logitech');
+select p.productid,p.price,p.description from products p,offers o where p.productid=o.productid and sellerid=(select sellerid from seller where sellername='apple store');
+select p.productid,p.price,p.description from products p,offers o where p.productid=o.productid and sellerid=(select sellerid from seller where sellername='amkette');
+select p.productid,p.price,p.description from products p,offers o where p.productid=o.productid and sellerid=(select sellerid from seller where sellername='keychron');
+select p.productid,p.price,p.description from products p,offers o where p.productid=o.productid and sellerid=(select sellerid from seller where sellername='lenovo');
+select username from customer where type='Prime';
+select username from customer where type='not Prime';
+select o.userid,o.productid,o.orderid from orders o,products p where p.productid=o.productid and p.description='logitech g402';

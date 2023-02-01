@@ -1,0 +1,89 @@
+Insert into products values ( 670, 1500, pg_read_binary_file('D:\minors\DBMS minproject database\logi.jfif')::bytea,'logitech g402');
+
+Insert into products values (671,3000,pg_read_binary_file('D:\minors\DBMS minproject database\index.jpg'),'logitech k380');
+
+Insert into products values (672,3100,pg_read_binary_file('D:\minors\DBMS minproject database\images.jpg'), 'logitech mk210');
+
+Insert into products values (673,10000,pg_read_binary_file('D:\minors\DBMS minproject database\images1.jpg'),'logitech g733');
+
+Insert into products values (674,7000,pg_read_binary_file('D:\minors\DBMS minproject database\images2.jpg'), 'logitech MX Master 3');
+
+Insert into products values (675,70000,pg_read_binary_file('D:\minors\DBMS minproject database\images3.jpg'), 'lenovo Legion 5');
+
+Insert into products values (676,70000,pg_read_binary_file('D:\minors\DBMS minproject database\images4.jpg'), 'lenovo Thinkpad Yoga');
+
+Insert into products values (677,76000,pg_read_binary_file('D:\minors\DBMS minproject database\images5.jpg'), 'lenovo yoga 7i');
+
+Insert into products values  (678,37000,pg_read_binary_file('D:\minors\DBMS minproject database\images6.jpg'), 'lenovo t410');
+
+Insert into products values (679,66000,pg_read_binary_file('D:\minors\DBMS minproject database\images7.jpg'), 'lenovo yoga 3 pro');
+
+Insert into products values  (680,4000,pg_read_binary_file('D:\minors\DBMS minproject database\index1.jpg'), 'keychron k2 wireless');
+
+Insert into products values (681,8000,pg_read_binary_file('D:\minors\DBMS minproject database\index2.jpg'), 'keychron k6 wireless');
+
+Insert into products values (682,10000,pg_read_binary_file('D:\minors\DBMS minproject database\index3.jpg'), 'keychron k10 wireless');
+
+Insert into products values  (683,7000,pg_read_binary_file('D:\minors\DBMS minproject database\images9.jpg'), 'keychron k1 wireless');
+
+Insert into products values (684,8000,pg_read_binary_file('D:\minors\DBMS minproject database\images8.jpg'), 'keychron k8 wireless');
+
+Insert into products values (685,900,pg_read_binary_file('D:\minors\DBMS minproject database\images12.jpg'), 'amkette 2.0 USB Hub');
+
+Insert into products values (686,600,pg_read_binary_file('D:\minors\DBMS minproject database\images11.jpg'), 'amkette ergo fit e7');
+
+
+Insert into products values ( 687, 150000, pg_read_binary_file('D:\minors\DBMS minproject database\index5.jpg')::bytea,'apple iphone');
+
+Insert into products values ( 688, 45000, pg_read_binary_file('D:\minors\DBMS minproject database\index6.jpg')::bytea,'apple ipad');
+
+
+Insert into products values ( 689, 450000, pg_read_binary_file('D:\minors\DBMS minproject database\index7.jpg')::bytea,'apple imac');
+
+Insert into products values ( 690, 90000, pg_read_binary_file('D:\minors\DBMS minproject database\index8.jpg')::bytea,'apple macbook air');
+
+Insert into products values ( 691, 123000, pg_read_binary_file('D:\minors\DBMS minproject database\index9.jpg')::bytea,'apple macbook pro');
+
+insert into offers values( TRUE, 1700, 670, 300);
+insert into offers values( TRUE, 1700, 671, 200);
+insert into offers values( TRUE, 1700, 672, 500);
+insert into offers values( TRUE, 1700, 673, 150);
+insert into offers values( TRUE, 1700, 674, 50);
+insert into offers values( FALSE, 1550, 676, 0);
+insert into offers values( TRUE, 1550, 677, 230);
+insert into offers values( TRUE, 1550, 678, 10);
+insert into offers values( TRUE, 1550, 679, 272);
+insert into offers values( TRUE, 1982, 680, 65);
+insert into offers values( TRUE, 1982, 681, 80);
+insert into offers values( TRUE, 1982, 682, 53);
+insert into offers values( TRUE, 1982, 683, 97);
+insert into offers values( TRUE, 1982, 684, 123);
+insert into offers values( TRUE, 1545, 691, 5);
+insert into offers values( TRUE, 1545, 687, 900);
+insert into offers values( TRUE, 1545, 688, 300);
+insert into offers values( TRUE, 1545, 689, 3);
+insert into offers values( TRUE, 1545, 690, 155);
+insert into offers values( TRUE, 1522, 685, 55);
+insert into offers values( TRUE, 1522, 686, 2);
+
+insert into customer values( 1 , 'amandeep singh' , 123456789 ,'amandeepsinghahuja@gmail.com','ABCD','Prime');
+insert into customer values( 2 , 'jaishankar' , 987654321 , 'jaishankar@gmail.com', 'DBCA' ,'Prime');
+insert into customer values( 3 , 'anshul' , 369369369 , 'anshul@gmail.com', 'AABCDASX' ,'not Prime');
+insert into customer values( 4 , 'devayani' , 258258258 , 'devayani@gmail.com', 'QWERTY' , 'not Prime');
+insert into customer values( 5 , 'numan', 147147147 , 'numan@gmail.com', 'ASDFGHJ' , 'Prime');
+insert into customer values( 6 , 'simar', 654654654, 'simar@gmail.com', 'xyz' , 'not Prime');
+Insert into customer values( 7, 'shravanthi', 789789789, 'shravanthi@gmail.com', 'poi', 'not Prime');          
+
+
+insert into seller values( 1522, 'Amkette', 'ABC,new delhi, delhi ',12345);
+Insert into seller values( 1545, 'Apple store', 'FGH, bangalore, karnataka', 23456);
+Insert into seller values( 1700, 'Logitech', 'CCYH, Chennai, tamil nadu', 12345);
+Insert into seller values( 1550, 'Lenovo', 'QWERTY, hyderabad, telangana', 45678);
+Insert into seller values( 1982, 'Keychron', 'YUI, kolkata, west bengal', 34567);
+
+
+insert into logistics values (12345, 676767678, 'bluedart');
+insert into logistics values (23456, 676767679, 'FedEX');
+insert into logistics values (34567, 676767670, 'DHL');
+insert into logistics values (45678, 676767671, 'delhivery');
+insert into logistics values (56789, 676767672, 'DTDC');
